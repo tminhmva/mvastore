@@ -1,0 +1,536 @@
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THANH TOÁN | MVA STORE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a101f;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a081f, #201b4a, #18162e);
+            background-size: 400% 400%;
+            animation: gradient 12s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .card-bank {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+        }
+        
+        .card-bank::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(124, 58, 237, 0.2) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .card-bank:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.07);
+        }
+        
+        .card-bank:hover::before {
+            opacity: 1;
+        }
+        
+        .highlighted {
+            border: 2px solid rgba(99, 102, 241, 0.7);
+            position: relative;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(124, 58, 237, 0.25)) !important;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .highlighted::after {
+            content: 'ƯU TIÊN';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #6366f1;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .glow {
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+        }
+        
+        .btn-copy {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-copy:hover {
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.8);
+            transform: translateY(-2px);
+        }
+        
+        .btn-copy::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .btn-copy:hover::after {
+            left: 100%;
+            opacity: 0.5;
+        }
+        
+        .bank-number {
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+        }
+        
+        .bank-name {
+            font-weight: 700;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 2rem;
+            background: rgba(10, 16, 31, 0.9);
+            border-left: 4px solid #6366f1;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .qr-code {
+            filter: drop-shadow(0 10px 15px rgba(99, 102, 241, 0.3));
+        }
+        
+        .bank-icon-container {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(124, 58, 237, 0.3) 100%);
+            border-radius: 50%;
+        }
+
+        .zalo-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #0068FF, #0091FF);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 104, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            margin-top: 2rem;
+        }
+
+        .zalo-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 104, 255, 0.4);
+        }
+
+        .zalo-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .zalo-btn:hover::before {
+            left: 100%;
+        }
+
+        .zalo-btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div id="particles-js"></div>
+    <div class="content-wrapper min-h-screen flex flex-col">
+        <div class="container mx-auto px-4 py-12 flex-1">
+            <div class="text-center mb-12 relative">
+                <div class="absolute -top-20 -left-20 w-64 h-64 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+                <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 glow relative">
+                    <span class="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-500">THÔNG TIN CHUYỂN KHOẢN</span>
+                </h1>
+                <p class="text-lg opacity-80 max-w-2xl mx-auto relative z-10">Vui lòng chọn một trong các phương thức chuyển khoản dưới đây. Bấm vào nút sao chép để lấy thông tin tài khoản.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Vietcombank Card -->
+                <div class="card-bank p-6 hover:border-indigo-500">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+                    <div class="flex flex-col items-center">
+                        <div class="bank-icon-container mb-4">
+                            <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/02/Icon-Vietcombank.png" alt="Techcombank" class="w-14 h-14 object-contain">
+                        </div>
+                        <h2 class="text-xl bank-name mb-2">VIETCOMBANK</h2>
+                        <p class="text-sm opacity-70 mb-4">MAI TUAN MINH</p>
+                        
+                        <div class="w-full mb-6">
+                            <p class="text-sm opacity-80 mb-2">Số tài khoản:</p>
+                            <div class="flex items-center justify-between">
+                                <span class="bank-number">1059461617</span>
+                                <button onclick="copyToClipboard('3580855555', 'Techcombank')" class="btn-copy text-white px-4 py-2 rounded-lg ml-2 flex items-center">
+                                    <i class="fas fa-copy mr-2"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Techcombank Card (Highlighted) -->
+                <div class="card-bank p-6 hover:border-indigo-500 highlighted pulse">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+                    <div class="flex flex-col items-center">
+                        <div class="bank-icon-container mb-4">
+                            <img src="https://mentori.vn/upload/recruitment/tfy1627116645.png" alt="MOMO" class="w-14 h-14 object-contain">
+                        </div>
+                        <h2 class="text-xl bank-name mb-2">TECHCOMBANK</h2>
+                        <p class="text-sm opacity-70 mb-4">MAI TUAN MINH</p>
+                        
+                        <div class="w-full mb-6">
+                            <p class="text-sm opacity-80 mb-2">Số tài khoản:</p>
+                            <div class="flex items-center justify-between">
+                                <span class="bank-number">3580855555</span>
+                                <button onclick="copyToClipboard('3580855555', 'MOMO')" class="btn-copy text-white px-4 py-2 rounded-lg ml-2 flex items-center">
+                                    <i class="fas fa-copy mr-2"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mbbank Card -->
+                <div class="card-bank p-6 hover:border-indigo-500">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+                    <div class="flex flex-col items-center">
+                        <div class="bank-icon-container mb-4">
+                            <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/02/Icon-MB-Bank-MBB.png" alt="Vietcombank" class="w-14 h-14 object-contain">
+                        </div>
+                        <h2 class="text-xl bank-name mb-2">MBBANK</h2>
+                        <p class="text-sm opacity-70 mb-4">MAI TUAN MINH</p>
+                        
+                        <div class="w-full mb-6">
+                            <p class="text-sm opacity-80 mb-2">Số tài khoản:</p>
+                            <div class="flex items-center justify-between">
+                                <span class="bank-number">071737289999</span>
+                                <button onclick="copyToClipboard('9978809934', 'Vietcombank')" class="btn-copy text-white px-4 py-2 rounded-lg ml-2 flex items-center">
+                                    <i class="fas fa-copy mr-2"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="max-w-2xl mx-auto mt-16 bg-slate-800 bg-opacity-50 rounded-xl p-8 border border-indigo-500/20 backdrop-blur-sm">
+                <div class="absolute -top-5 -right-5 w-24 h-24 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+                <div class="absolute -bottom-5 -left-5 w-24 h-24 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+                <h2 class="text-2xl font-bold mb-4 text-center glow">HƯỚNG DẪN CHUYỂN KHOẢN</h2>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="bg-indigo-500 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-1 mr-3">
+                            <span class="text-white text-sm">1</span>
+                        </div>
+                        <p class="opacity-90">Bấm vào nút <strong>"Copy"</strong> để sao chép số tài khoản</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-indigo-500 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-1 mr-3">
+                            <span class="text-white text-sm">2</span>
+                        </div>
+                        <p class="opacity-90">Mở ứng dụng Mobile Banking hoặc ví điện tử</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-indigo-500 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-1 mr-3">
+                            <span class="text-white text-sm">3</span>
+                        </div>
+                        <p class="opacity-90">Dán số tài khoản và chuyển khoản </p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-indigo-500 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-1 mr-3">
+                            <span class="text-white text-sm">4</span>
+                        </div>
+                        <p class="opacity-90">Sau khi chuyển khoản, vui lòng liên hệ qua Zalo để xác nhận</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container mx-auto px-4 py-6 text-center">
+            <a href="dichvu.html" class="zalo-btn" target="_blank">
+                <i class="fab fa-zalo"></i> Tham Khảo Giá Dịch Vụ
+            </a>
+            <p class="opacity-70 text-sm mt-4">© Copyright MVA Store 2025, all rights reserved</p>
+        </div>
+    </div>
+    
+    <div id="toast" class="toast">
+        <div class="flex items-center">
+            <div class="mr-3 text-green-400">
+                <i class="fas fa-check-circle text-xl"></i>
+            </div>
+            <div>
+                <div class="font-bold" id="toast-title">Đã sao chép</div>
+                <div id="toast-message" class="text-sm opacity-80"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize particles.js
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#6366f1"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#6366f1",
+                    "opacity": 0.3,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+        
+        function copyToClipboard(text, bankName) {
+            navigator.clipboard.writeText(text).then(function() {
+                showToast('Đã sao chép', 'Số tài khoản ' + bankName + ' đã được sao chép');
+            }, function(err) {
+                showToast('Lỗi', 'Không thể sao chép: ' + err);
+            });
+        }
+        
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            const toastTitle = document.getElementById('toast-title');
+            const toastMessage = document.getElementById('toast-message');
+            
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
